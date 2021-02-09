@@ -12,5 +12,7 @@ public class PurchaseItemEntity extends BaseEntity {
     @Column
     private Integer count;
 
-
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private ProductEntity productEntity;
 }
