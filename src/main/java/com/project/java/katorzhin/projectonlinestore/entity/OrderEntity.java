@@ -11,14 +11,11 @@ import javax.persistence.*;
 public class OrderEntity extends BaseEntity {
 
     @Column
-    private String Column;
+    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    UserEntity userEntity;
+    private UserEntity userEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "purchase_item_id")
-    private PurchaseItemEntity purchaseItemEntity;
 
 }

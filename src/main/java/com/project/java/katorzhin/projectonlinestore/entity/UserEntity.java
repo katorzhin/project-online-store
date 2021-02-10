@@ -1,8 +1,7 @@
 package com.project.java.katorzhin.projectonlinestore.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.Table;
 
 @Table(name = "user_table")
 @Entity
-
 @Data
 @ToString(exclude = "password")
 public class UserEntity extends BaseEntity {
