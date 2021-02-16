@@ -1,6 +1,9 @@
 package com.project.java.katorzhin.projectonlinestore.controller;
 
 import com.project.java.katorzhin.projectonlinestore.controller.dto.FinishPurchaseRequest;
+import com.project.java.katorzhin.projectonlinestore.controller.dto.FinishPurchaseResponse;
+import com.project.java.katorzhin.projectonlinestore.service.PurchaseService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +14,14 @@ import javax.validation.Valid;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
 public class PurchaseController {
-    @PostMapping("finishPurchase")
-    public ResponseEntity finishPurchase(@Valid @RequestBody FinishPurchaseRequest request){
-        log.info("handling finish purchase request: {}",request);
-        return ResponseEntity.ok().build();
+    private final PurchaseService purchaseService;
+
+    @PostMapping("/finishPurchase")
+    public ResponseEntity finishPurchase(@Valid @RequestBody FinishPurchaseRequest request) {
+        log.info("handling finish purchase request: {}", request);
+        Integer orderId = purchaseService.finishPurchase(request);
+        return ResponseEntity.ok(new FinishPurchaseResponse(orderId));
     }
 }
