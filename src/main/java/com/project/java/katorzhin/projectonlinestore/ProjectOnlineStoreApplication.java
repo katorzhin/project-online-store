@@ -11,23 +11,20 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 public class ProjectOnlineStoreApplication {
 
-	private final UserEntityRepository userEntityRepository;
-	@Autowired
-	public ProjectOnlineStoreApplication(UserEntityRepository userEntityRepository) {
-		this.userEntityRepository = userEntityRepository;
-	}
+//	@Autowired
+//	private UserEntityRepository userEntityRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectOnlineStoreApplication.class, args);
 	}
 
-	@EventListener(ApplicationReadyEvent.class)
-	public void testRepository(){
-		UserEntity userEntity = new UserEntity();
-		userEntity.setAddress("address");
-		userEntity.setName("name");
-		userEntity.setPhone("prhone");
-		userEntity.setEmail("email");
-		userEntityRepository.save(userEntity);
-	}
+//	@EventListener(ApplicationReadyEvent.class)
+//	public void testRepository() {
+//		UserEntity userEntity = new UserEntity();
+//		userEntity.setAddress("address");
+//		userEntity.setName("name");
+//		userEntity.setPhone("phone");
+//		userEntity.setEmail("email");
+//		userEntityRepository.save(userEntity);
+//	}
 }

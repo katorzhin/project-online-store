@@ -8,6 +8,7 @@ import java.util.Map;
 
 @Data
 public class FinishPurchaseRequest {
+
     @NotNull
     private Map<Integer, Integer> productIdProductCount;
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "purchase_item_table")
 @Entity
 @Data

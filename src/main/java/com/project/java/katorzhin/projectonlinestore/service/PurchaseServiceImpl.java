@@ -5,6 +5,7 @@ import com.project.java.katorzhin.projectonlinestore.entity.OrderEntity;
 import com.project.java.katorzhin.projectonlinestore.entity.ProductEntity;
 import com.project.java.katorzhin.projectonlinestore.entity.PurchaseItemEntity;
 import com.project.java.katorzhin.projectonlinestore.repository.OrderEntityRepository;
+import com.project.java.katorzhin.projectonlinestore.repository.PurchaseEntityRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,16 +20,17 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final ProductService productService;
     private final UserService userService;
     private final OrderEntityRepository orderEntityRepository;
+    private final PurchaseEntityRepository purchaseEntityRepository;
 
     @Override
     public Integer finishPurchase(FinishPurchaseRequest request) {
-        log.info("creating order entity from request: {}",request);
+        log.info("creating order entity from request: {}", request);
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setUserEntity(userService.findOrCreateUser(request.getUserName(), request.getUserSurName(),
                 request.getPhone(), request.getEmail(),
                 request.getAddress()));
         orderEntity.setComment(request.getComment());
-       orderEntity =  orderEntityRepository.save(orderEntity);
+        orderEntity = orderEntityRepository.save(orderEntity);
 
         for (Map.Entry<Integer, Integer> entry : request.getProductIdProductCount().entrySet()) {
             Integer k = entry.getKey();
@@ -38,6 +40,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItemEntity.setProductEntity(productEntity);
             purchaseItemEntity.setCount(v);
             purchaseItemEntity.setOrderEntity(orderEntity);
+            purchaseEntityRepository.save(purchaseItemEntity);
         }
         return orderEntity.getId();
     }

@@ -14,17 +14,18 @@ create table user_table
     id       serial
         constraint user_table_pk
             primary key,
-    name     varchar(40) not null,
-    surname  varchar(40),
-    email    varchar(50) not null,
-    phone    varchar(30),
-    password varchar(350),
+    name     varchar(20) not null,
+    surname  varchar(20),
+    email    varchar(30) not null,
+    phone    varchar(15),
+    password varchar(300),
     role     text,
-    address  varchar(100)
+    address  varchar(70)
 );
 
 create unique index user_table_email_uindex
     on user_table (email);
+
 
 create table purchase_item_table
 (
@@ -36,7 +37,6 @@ create table purchase_item_table
             references product_table,
     count      int default 1
 );
-
 create table order_table
 (
     id               serial

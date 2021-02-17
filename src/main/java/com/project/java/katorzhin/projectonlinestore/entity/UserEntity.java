@@ -2,12 +2,14 @@ package com.project.java.katorzhin.projectonlinestore.entity;
 
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "user_table")
 @Entity
 @Data
