@@ -50,12 +50,12 @@ public class PurchaseServiceImpl implements PurchaseService {
     private Map<Integer, Integer> getProductIdProductCountMap(FinishPurchaseRequest request) {
         Map<Integer, Integer> productIdProductCount = new HashMap<>();
         request.getProductIds().forEach(it->{
-            if (productIdProductCount.containsKey(it)){
-                Integer productCount = productIdProductCount.get(it);
+            if (productIdProductCount.containsKey(it.getId())){
+                Integer productCount = productIdProductCount.get(it.getId());
                 productCount = productCount+1;
-                productIdProductCount.put(it,productCount);
+                productIdProductCount.put(it.getId(),productCount);
             }else {
-                productIdProductCount.put(it,1);
+                productIdProductCount.put(it.getId(),1);
             }
         });
         return productIdProductCount;

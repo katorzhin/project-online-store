@@ -4,6 +4,7 @@ import com.project.java.katorzhin.projectonlinestore.entity.ProductEntity;
 import com.project.java.katorzhin.projectonlinestore.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @AllArgsConstructor
+@CrossOrigin
 public class ProductController {
 
     private final ProductService productService;
