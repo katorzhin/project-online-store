@@ -2,17 +2,19 @@ package com.project.java.katorzhin.projectonlinestore.controller.dto;
 
 import com.project.java.katorzhin.projectonlinestore.entity.ProductEntity;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
+
 
 @Data
+@ToString(exclude = "password")
 public class FinishPurchaseRequest {
 
     @NotNull
-    private List<ProductEntity>productIds;
+    private List<ProductEntity> products;
 
     @NotEmpty
     private String userName;
@@ -27,6 +29,8 @@ public class FinishPurchaseRequest {
 
     @NotEmpty
     private String address;
+
+    private String password;
 
     private String comment;
 

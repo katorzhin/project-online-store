@@ -4,6 +4,7 @@ import com.project.java.katorzhin.projectonlinestore.controller.dto.FinishPurcha
 import com.project.java.katorzhin.projectonlinestore.entity.OrderEntity;
 import com.project.java.katorzhin.projectonlinestore.entity.ProductEntity;
 import com.project.java.katorzhin.projectonlinestore.entity.PurchaseItemEntity;
+import com.project.java.katorzhin.projectonlinestore.entity.UserEntity;
 import com.project.java.katorzhin.projectonlinestore.repository.OrderEntityRepository;
 import com.project.java.katorzhin.projectonlinestore.repository.PurchaseEntityRepository;
 import lombok.AllArgsConstructor;
@@ -27,9 +28,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Integer finishPurchase(FinishPurchaseRequest request) {
         log.info("creating order entity from request: {}", request);
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setUserEntity(userService.findOrCreateUser(request.getUserName(), request.getUserSurName(),
+        UserEntity userEntity = userService.findOrCreateUser(request.getUserName(), request.getUserSurName(),
                 request.getPhone(), request.getEmail(),
-                request.getAddress()));
+                request.getAddress());
+        orderEntity.setUserEntity(userEntity);
         orderEntity.setComment(request.getComment());
         orderEntity = orderEntityRepository.save(orderEntity);
         Map<Integer, Integer> productIdProductCount = getProductIdProductCountMap(request);
@@ -44,18 +46,22 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItemEntity.setOrderEntity(orderEntity);
             purchaseEntityRepository.save(purchaseItemEntity);
         }
-        return orderEntity.getId();
+        if (request.getPassword() != null && request.getPassword().length() > 5){
+            userService.setPassword(userEntity.getId(),request.getPassword());
+
+        }
+            return orderEntity.getId();
     }
 
     private Map<Integer, Integer> getProductIdProductCountMap(FinishPurchaseRequest request) {
         Map<Integer, Integer> productIdProductCount = new HashMap<>();
-        request.getProductIds().forEach(it->{
-            if (productIdProductCount.containsKey(it.getId())){
+        request.getProducts().forEach(it -> {
+            if (productIdProductCount.containsKey(it.getId())) {
                 Integer productCount = productIdProductCount.get(it.getId());
-                productCount = productCount+1;
-                productIdProductCount.put(it.getId(),productCount);
-            }else {
-                productIdProductCount.put(it.getId(),1);
+                productCount = productCount + 1;
+                productIdProductCount.put(it.getId(), productCount);
+            } else {
+                productIdProductCount.put(it.getId(), 1);
             }
         });
         return productIdProductCount;
