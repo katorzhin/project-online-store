@@ -13,11 +13,14 @@ import javax.validation.Valid;
 @RestController
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final JwtProvider jwtProvider;
 
     @Autowired
-    private JwtProvider jwtProvider;
+    public AuthController(UserService userService, JwtProvider jwtProvider) {
+        this.userService = userService;
+        this.jwtProvider = jwtProvider;
+    }
 
     @PostMapping("/auth")
     public AuthResponse auth(@Valid @RequestBody AuthRequest request) {

@@ -46,11 +46,11 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseItemEntity.setOrderEntity(orderEntity);
             purchaseEntityRepository.save(purchaseItemEntity);
         }
-        if (request.getPassword() != null && request.getPassword().length() > 5){
-            userService.setPassword(userEntity.getId(),request.getPassword());
+        if (request.getPassword() != null && request.getPassword().length() > 5) {
+            userService.setPassword(userEntity.getId(), request.getPassword());
 
         }
-            return orderEntity.getId();
+        return orderEntity.getId();
     }
 
     private Map<Integer, Integer> getProductIdProductCountMap(FinishPurchaseRequest request) {
